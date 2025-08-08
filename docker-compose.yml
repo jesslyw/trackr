@@ -26,7 +26,12 @@ services:
   frontend:
     build: ./trackr-frontend
     ports:
-      - "3000:5173"
+      - "3000:5170"
+    volumes:
+      - ./trackr-frontend:/app
+      - /app/node_modules
+    environment:
+      VITE_API_URL: "http://api:8080"
     networks:
       - trackr-network
 
