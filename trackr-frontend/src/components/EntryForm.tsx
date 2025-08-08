@@ -3,21 +3,24 @@ import { EntryTableRowProps } from "./EntryTableRow";
 import { v4 as uuidv4 } from "uuid";
 import "./EntryForm.css";
 import Col from "react-bootstrap/Col";
-import Container from "react-bootstrap/Container";
 import Row from "react-bootstrap/Row";
 import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
 import { FormControl, FormGroup } from "react-bootstrap";
 
 interface EntryFormProps {
-  onSubmit: (entry: Omit<EntryTableRowProps, "onStatusChange" | "onSave" | "onDelete">) => void;
+  onSubmit: (
+    entry: Omit<EntryTableRowProps, "onStatusChange" | "onSave" | "onDelete">
+  ) => void;
 }
 
 // relevant fields for entry form
-type EntryFormState = Omit<EntryTableRowProps, "id" | "onStatusChange" | "onSave" | "onDelete">;
+type EntryFormState = Omit<
+  EntryTableRowProps,
+  "id" | "onStatusChange" | "onSave" | "onDelete"
+>;
 
 const EntryForm: FC<EntryFormProps> = ({ onSubmit }) => {
-
   const [entry, setEntry] = useState<EntryFormState>({
     name: "",
     date: new Date(),
@@ -27,7 +30,7 @@ const EntryForm: FC<EntryFormProps> = ({ onSubmit }) => {
 
   // to update the local state
   const handleInputChange = (
-    e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>,
+    e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>
   ) => {
     const { name, value } = e.target;
     setEntry((prevEntry) => ({

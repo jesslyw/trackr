@@ -11,7 +11,7 @@ import java.util.UUID;
 
 @RestController
 @RequestMapping(path = "/api/v1/entry")
-@CrossOrigin(origins = "http://localhost:3000")
+@CrossOrigin(origins = "http://localhost:5173")
 public class EntryController {
 
     private final EntryRepository entryRepository;
