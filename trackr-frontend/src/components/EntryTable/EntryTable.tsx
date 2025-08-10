@@ -4,6 +4,7 @@ import toast from "react-hot-toast";
 import EntryTableRow from "../EntryTableRow/EntryTableRow";
 import { Entry } from "../../types/types";
 import { deleteEntry, updateEntry } from "../../api/entries";
+import "./EntryTable.css";
 
 interface EntryTableProps {
   entryList: Entry[];
@@ -28,6 +29,11 @@ const EntryTable: FC<EntryTableProps> = ({ entryList }) => {
   const onSave = async (id: string, updatedEntry: Entry) => {
     try {
       await updateEntry(id, updatedEntry);
+      setEntries((prevEntries) =>
+        prevEntries.map((entry) =>
+          entry.id === id ? { ...entry, ...updatedEntry } : entry
+        )
+      );
       toast("Entry updated!");
     } catch (error) {
       toast("Error updating entry!");
@@ -67,8 +73,8 @@ const EntryTable: FC<EntryTableProps> = ({ entryList }) => {
               status={entry.status}
               notes={entry.notes}
               onStatusChange={onStatusChange}
-              onSave={() => onSave(entry.id, entry)}
-              onDelete={() => onDelete(entry.id)}
+              onSave={onSave}
+              onDelete={onDelete}
             />
           ))
         ) : (
