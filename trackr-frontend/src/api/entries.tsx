@@ -32,6 +32,7 @@ export async function postEntry(entry: Entry) {
       note: entry.notes,
       status: { id: entry.status },
     });
+    return entry;
   } catch (error) {
     console.log("Error posting entry:", error);
   }
