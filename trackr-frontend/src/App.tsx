@@ -22,7 +22,7 @@ const App: FC = () => {
     const fetchEntries = async () => {
       try {
         const response = await axios.get(
-          process.env.REACT_APP_BASE_ENTRY_ENDPOINT as string
+          import.meta.env.VITE_BASE_ENTRY_ENDPOINT as string
         );
         console.log("Fetched response data:", response.data);
         const fetchedEntries = response.data.map((entry: any) => ({
@@ -56,7 +56,7 @@ const App: FC = () => {
   const onSubmit = (entry: EntryWithoutMethods) => {
     // post entry to backend
     axios
-      .post(process.env.REACT_APP_BASE_ENTRY_ENDPOINT as string, {
+      .post(import.meta.env.VITE_BASE_ENTRY_ENDPOINT as string, {
         id: entry.id,
         name: entry.name,
         date: format(entry.date, "yyyy-MM-dd"),

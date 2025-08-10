@@ -2,10 +2,13 @@ import EntryTableRow, { EntryTableRowProps } from "./EntryTableRow";
 import { FC, useState, useEffect } from "react";
 import Table from "react-bootstrap/Table";
 import axios from "axios";
-import toast from 'react-hot-toast';
+import toast from "react-hot-toast";
 import { format } from "date-fns";
 
-type EntryWithoutMethods = Omit<EntryTableRowProps, "onStatusChange" | "onSave" | "onDelete">;
+type EntryWithoutMethods = Omit<
+  EntryTableRowProps,
+  "onStatusChange" | "onSave" | "onDelete"
+>;
 
 interface EntryTableProps {
   entryList: EntryWithoutMethods[];
@@ -20,68 +23,71 @@ const EntryTable: FC<EntryTableProps> = ({ entryList }) => {
 
   const onStatusChange = (id: string, newStatus: string) => {
     console.log("Before update:", entries);
-    console.log("new status:", newStatus)
+    console.log("new status:", newStatus);
     setEntries((prevEntries) => {
-        const updatedEntries = prevEntries.map((entry) =>
-          entry.id === id ? { ...entry, status: newStatus } : entry,
-        );
-        console.log("After update:", updatedEntries);
-        return updatedEntries;
-      });
+      const updatedEntries = prevEntries.map((entry) =>
+        entry.id === id ? { ...entry, status: newStatus } : entry
+      );
+      console.log("After update:", updatedEntries);
+      return updatedEntries;
+    });
   };
 
   const onSave = async (id: string, updatedEntry: EntryWithoutMethods) => {
     try {
-
-        // quick fix to match expected object,
-        // until status shape is refactored in EntryTableRow interface
-        const requestBody = {
-            id: updatedEntry.id,
-            name: updatedEntry.name,
-            date: format(updatedEntry.date, "yyyy-MM-dd"),
-            note: updatedEntry.notes,
-            status: {
-                id: updatedEntry.status }
-        };
+      // quick fix to match expected object,
+      // until status shape is refactored in EntryTableRow interface
+      const requestBody = {
+        id: updatedEntry.id,
+        name: updatedEntry.name,
+        date: format(updatedEntry.date, "yyyy-MM-dd"),
+        note: updatedEntry.notes,
+        status: {
+          id: updatedEntry.status,
+        },
+      };
 
       const response = await axios.put(
-        `${process.env.REACT_APP_BASE_ENTRY_ENDPOINT}/${id}`,
+        `${import.meta.env.VITE_BASE_ENTRY_ENDPOINT}/${id}`,
         requestBody,
         {
           headers: {
             "Content-Type": "application/json",
           },
-        },
+        }
       );
 
       if (response.status === 200) {
         console.log(`Entry with id ${id} saved successfully.`);
-        toast('Entry updated!')
+        toast("Entry updated!");
       } else {
-        toast('Error updating entry!')
+        toast("Error updating entry!");
         throw new Error("Failed to save entry");
       }
     } catch (error: any) {
       console.error(`Error updating entry ${id} : ${error.message}`);
-      toast('Error updating entry!')
+      toast("Error updating entry!");
     }
   };
 
   const onDelete = async (id: string) => {
-    try{
-        const response = await axios.delete(`${process.env.REACT_APP_BASE_ENTRY_ENDPOINT}/${id}`);
-        if (response.status === 204) {
-            console.log(`Entry with id ${id} deleted successfully.`);
-            toast('Entry deleted successfully!')
-            // only remove from state after successful deletion
-            setEntries((prevEntries) => prevEntries.filter((entry) => entry.id !== id));
+    try {
+      const response = await axios.delete(
+        `${import.meta.env.VITE_BASE_ENTRY_ENDPOINT}/${id}`
+      );
+      if (response.status === 204) {
+        console.log(`Entry with id ${id} deleted successfully.`);
+        toast("Entry deleted successfully!");
+        // only remove from state after successful deletion
+        setEntries((prevEntries) =>
+          prevEntries.filter((entry) => entry.id !== id)
+        );
+      }
+    } catch (error: any) {
+      console.error(`Error deleting entry ${id} : ${error.message}`);
+      toast("Error deleting entry!");
     }
-  } catch (error: any){
-    console.error(`Error deleting entry ${id} : ${error.message}`);
-    toast('Error deleting entry!');
-}
-
-  }
+  };
 
   return (
     <Table bordered hover>
@@ -109,7 +115,6 @@ const EntryTable: FC<EntryTableProps> = ({ entryList }) => {
               onSave={() => onSave(entry.id, entry)}
               onDelete={() => onDelete(entry.id)}
             />
-
           ))
         ) : (
           <tr>
