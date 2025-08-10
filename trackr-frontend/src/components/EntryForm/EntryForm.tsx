@@ -34,7 +34,7 @@ const EntryForm: FC<EntryFormProps> = ({ onSubmit }) => {
     const { name, value } = e.target;
     setEntry((prevEntry) => ({
       ...prevEntry,
-      [name]: name === "date" ? new Date(value) : value,
+      [name]: value,
     }));
   };
 
