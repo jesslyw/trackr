@@ -1,10 +1,10 @@
 import { StrictMode } from "react";
 import { createRoot } from "react-dom/client";
 import "./index.css";
-import TrackrApp from "./components/TrackrApp";
+import App from "./App/App";
 
 createRoot(document.getElementById("root")!).render(
   <StrictMode>
-    <TrackrApp />
+    <App />
   </StrictMode>
 );

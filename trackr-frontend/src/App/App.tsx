@@ -1,24 +1,17 @@
 import { FC, useState, useEffect } from "react";
-import "./TrackrApp.css";
-import EntryForm from "./EntryForm";
-import EntryTable from "./EntryTable";
-import TrackrHeader from "./TrackrHeader";
-import { postEntry, fetchEntries } from "../api/entries";
+import "./App.css";
+import EntryForm from "../components/EntryForm/EntryForm";
+import EntryTable from "../components/EntryTable/EntryTable";
+import Header from "../components/Header/Header";
+import { postEntry, getEntries } from "../api/entries";
 import { useCallback } from "react";
+import { Entry } from "../types/types";
 
-export type Entry = {
-  id: string;
-  name: string;
-  date: Date;
-  status: string;
-  notes: string;
-};
-
-const TrackrApp: FC = () => {
+const App: FC = () => {
   const [entries, setEntries] = useState<Entry[]>([]);
 
   const loadData = useCallback(async () => {
-    const entries = await fetchEntries();
+    const entries = await getEntries();
     setEntries(entries);
   }, []);
 
@@ -35,11 +28,11 @@ const TrackrApp: FC = () => {
 
   return (
     <div className="trackr-app-container">
-      <TrackrHeader />
+      <Header />
       <EntryForm onSubmit={onSubmit} />
       <EntryTable entryList={entries} />
     </div>
   );
 };
 
-export default TrackrApp;
+export default App;

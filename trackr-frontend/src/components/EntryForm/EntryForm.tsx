@@ -1,5 +1,5 @@
 import { useState, FC, ChangeEvent, FormEvent } from "react";
-import { EntryTableRowProps } from "./EntryTableRow";
+import { EntryTableRowProps } from "../EntryTableRow/EntryTableRow";
 import { v4 as uuidv4 } from "uuid";
 import "./EntryForm.css";
 import Col from "react-bootstrap/Col";
@@ -7,11 +7,10 @@ import Row from "react-bootstrap/Row";
 import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
 import { FormControl, FormGroup } from "react-bootstrap";
+import { Entry } from "../../types/types";
 
 interface EntryFormProps {
-  onSubmit: (
-    entry: Omit<EntryTableRowProps, "onStatusChange" | "onSave" | "onDelete">
-  ) => void;
+  onSubmit: (entry: Entry) => void;
 }
 
 // relevant fields for entry form
@@ -23,7 +22,7 @@ type EntryFormState = Omit<
 const EntryForm: FC<EntryFormProps> = ({ onSubmit }) => {
   const [entry, setEntry] = useState<EntryFormState>({
     name: "",
-    date: new Date(),
+    date: "",
     status: "",
     notes: "",
   });
@@ -43,7 +42,7 @@ const EntryForm: FC<EntryFormProps> = ({ onSubmit }) => {
     e.preventDefault();
     const entryWithId = { ...entry, id: uuidv4() };
     onSubmit(entryWithId); // generate id and pass entry to parent
-    setEntry({ name: "", date: new Date(), status: "", notes: "" });
+    setEntry({ name: "", date: "", status: "", notes: "" });
   };
 
   return (
