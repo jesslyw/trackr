@@ -4,6 +4,8 @@ A simple full-stack app with PostgreSQL, Spring Boot, and React
 
 Track and manage entries in a list
 
+<img src="./trackr-frontend/public/screenshot.png" alt="App Screenshot" width="300"/>
+
 ## Development Setup
 
 **Prerequisite:** Docker
