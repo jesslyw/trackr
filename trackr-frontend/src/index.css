@@ -1,5 +1,6 @@
 body {
-  font-family: sans-serif, Verdana, Geneva, Tahoma;
+  font-family: "Inter", sans-serif, Verdana, Geneva, Tahoma;
+  font-size: 20px;
 }
 
 .table {
@@ -12,6 +13,52 @@ body {
   margin-bottom: 5%;
 }
 
-.container-header {
-  margin-bottom: 5%;
+.thead-light tr th {
+  background-color: #dbe9f4;
+}
+
+h1 {
+  font-family: "Inter", sans-serif;
+  font-weight: 600;
+
+  text-shadow: 1px 1px 1px black;
+  color: white;
+}
+
+h2 {
+  font-family: "Inter", sans-serif;
+  /* 
+  text-shadow: 1px 1px 1px black; */
+  font-size: 1.5rem;
+  color: white;
+}
+
+td {
+  overflow-wrap: break-word;
+}
+
+th:last-of-type {
+  width: 120px;
+}
+
+td:last-of-type {
+  width: 120px;
+  text-align: center;
+  vertical-align: middle;
+}
+
+@font-face {
+  font-family: "Inter";
+  src: url("../public/fonts/Libertinus_Serif/LibertinusSerif-Regular.ttf")
+    format("truetype");
+  font-weight: 400;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "Inter";
+  src: url("../public/fonts/Libertinus_Serif/LibertinusSerif-Bold.ttf")
+    format("truetype");
+  font-weight: 700;
+  font-style: normal;
 }

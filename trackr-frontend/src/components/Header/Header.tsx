@@ -1,4 +1,5 @@
 import { FC } from "react";
+import "./Header.css";
 
 const TrackrHeader: FC = () => {
   return (

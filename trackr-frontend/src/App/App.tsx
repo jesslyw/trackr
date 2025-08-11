@@ -35,11 +35,13 @@ const App: FC = () => {
   };
 
   return (
-    <div className="trackr-app-container">
+    <>
       <Header />
-      <EntryForm onSubmit={onSubmit} />
-      <EntryTable entryList={entries} />
-    </div>
+      <div className="trackr-app-container">
+        <EntryForm onSubmit={onSubmit} />
+        <EntryTable entryList={entries} />
+      </div>
+    </>
   );
 };
 

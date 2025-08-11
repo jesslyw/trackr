@@ -52,40 +52,45 @@ const EntryTable: FC<EntryTableProps> = ({ entryList }) => {
   };
 
   return (
-    <Table bordered hover>
-      <thead className="thead-light">
-        <tr>
-          <th scope="col">name</th>
-          <th scope="col">date</th>
-          <th scope="col">status</th>
-          <th scope="col">notes</th>
-          <th scope="col"></th>
-        </tr>
-      </thead>
-      <tbody>
-        {entries.length > 0 ? (
-          entries.map((entry) => (
-            <EntryTableRow
-              key={entry.id}
-              id={entry.id}
-              name={entry.name}
-              date={entry.date}
-              status={entry.status}
-              notes={entry.notes}
-              onStatusChange={onStatusChange}
-              onSave={onSave}
-              onDelete={onDelete}
-            />
-          ))
-        ) : (
+    <>
+      <h2 style={{ marginBottom: "40px", color: "black", fontSize: "20px" }}>
+        Click on Name, Status, or Notes to edit; click outside the field to save
+      </h2>
+      <Table bordered hover>
+        <thead className="thead-light">
           <tr>
-            <td colSpan={5}>
-              No entries available yet! Use the form to get started.
-            </td>
+            <th scope="col">name</th>
+            <th scope="col">date</th>
+            <th scope="col">status</th>
+            <th scope="col">notes</th>
+            <th scope="col"></th>
           </tr>
-        )}
-      </tbody>
-    </Table>
+        </thead>
+        <tbody>
+          {entries.length > 0 ? (
+            entries.map((entry) => (
+              <EntryTableRow
+                key={entry.id}
+                id={entry.id}
+                name={entry.name}
+                date={entry.date}
+                status={entry.status}
+                notes={entry.notes}
+                onStatusChange={onStatusChange}
+                onSave={onSave}
+                onDelete={onDelete}
+              />
+            ))
+          ) : (
+            <tr>
+              <td colSpan={5}>
+                No entries available yet! Use the form to get started.
+              </td>
+            </tr>
+          )}
+        </tbody>
+      </Table>
+    </>
   );
 };
 
